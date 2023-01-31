@@ -52,7 +52,12 @@ library MinerAPI {
     function getOwner(bytes memory target) internal returns (MinerTypes.GetOwnerReturn memory) {
         bytes memory raw_request = new bytes(0);
 
-        bytes memory raw_response = Actor.call(MinerTypes.GetOwnerMethodNum, target, raw_request, Misc.NONE_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.GetOwnerMethodNum,
+            target,
+            raw_request,
+            Misc.NONE_CODEC
+        );
 
         bytes memory result = Actor.readRespData(raw_response);
 
@@ -69,7 +74,12 @@ library MinerAPI {
     function changeOwnerAddress(bytes memory target, bytes memory addr) internal {
         bytes memory raw_request = addr.serializeAddress();
 
-        bytes memory raw_response = Actor.call(MinerTypes.ChangeOwnerAddressMethodNum, target, raw_request, Misc.CBOR_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.ChangeOwnerAddressMethodNum,
+            target,
+            raw_request,
+            Misc.CBOR_CODEC
+        );
 
         Actor.readRespData(raw_response);
 
@@ -79,10 +89,18 @@ library MinerAPI {
     /// @param target The miner address (type ID) you want to interact with
     /// @param addr The "controlling" addresses are the Owner, the Worker, and all Control Addresses.
     /// @return Whether the provided address is "controlling".
-    function isControllingAddress(bytes memory target, bytes memory addr) internal returns (MinerTypes.IsControllingAddressReturn memory) {
+    function isControllingAddress(
+        bytes memory target,
+        bytes memory addr
+    ) internal returns (MinerTypes.IsControllingAddressReturn memory) {
         bytes memory raw_request = addr.serializeAddress();
 
-        bytes memory raw_response = Actor.call(MinerTypes.IsControllingAddressMethodNum, target, raw_request, Misc.CBOR_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.IsControllingAddressMethodNum,
+            target,
+            raw_request,
+            Misc.CBOR_CODEC
+        );
 
         bytes memory result = Actor.readRespData(raw_response);
 
@@ -95,10 +113,17 @@ library MinerAPI {
     /// @return the miner's sector size.
     /// @param target The miner address (type ID) you want to interact with
     /// @dev For more information about sector sizes, please refer to https://spec.filecoin.io/systems/filecoin_mining/sector/#section-systems.filecoin_mining.sector
-    function getSectorSize(bytes memory target) internal returns (MinerTypes.GetSectorSizeReturn memory) {
+    function getSectorSize(
+        bytes memory target
+    ) internal returns (MinerTypes.GetSectorSizeReturn memory) {
         bytes memory raw_request = new bytes(0);
 
-        bytes memory raw_response = Actor.call(MinerTypes.GetSectorSizeMethodNum, target, raw_request, Misc.NONE_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.GetSectorSizeMethodNum,
+            target,
+            raw_request,
+            Misc.NONE_CODEC
+        );
 
         bytes memory result = Actor.readRespData(raw_response);
 
@@ -112,10 +137,17 @@ library MinerAPI {
     /// @notice This is calculated as actor balance - (vesting funds + pre-commit deposit + initial pledge requirement + fee debt)
     /// @notice Can go negative if the miner is in IP debt.
     /// @return the available balance of this miner.
-    function getAvailableBalance(bytes memory target) internal returns (MinerTypes.GetAvailableBalanceReturn memory) {
+    function getAvailableBalance(
+        bytes memory target
+    ) internal returns (MinerTypes.GetAvailableBalanceReturn memory) {
         bytes memory raw_request = new bytes(0);
 
-        bytes memory raw_response = Actor.call(MinerTypes.GetAvailableBalanceMethodNum, target, raw_request, Misc.NONE_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.GetAvailableBalanceMethodNum,
+            target,
+            raw_request,
+            Misc.NONE_CODEC
+        );
 
         bytes memory result = Actor.readRespData(raw_response);
 
@@ -127,10 +159,17 @@ library MinerAPI {
 
     /// @param target The miner address (type ID) you want to interact with
     /// @return the funds vesting in this miner as a list of (vesting_epoch, vesting_amount) tuples.
-    function getVestingFunds(bytes memory target) internal returns (MinerTypes.GetVestingFundsReturn memory) {
+    function getVestingFunds(
+        bytes memory target
+    ) internal returns (MinerTypes.GetVestingFundsReturn memory) {
         bytes memory raw_request = new bytes(0);
 
-        bytes memory raw_response = Actor.call(MinerTypes.GetVestingFundsMethodNum, target, raw_request, Misc.NONE_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.GetVestingFundsMethodNum,
+            target,
+            raw_request,
+            Misc.NONE_CODEC
+        );
 
         bytes memory result = Actor.readRespData(raw_response);
 
@@ -144,10 +183,18 @@ library MinerAPI {
     /// @notice Proposes or confirms a change of beneficiary address.
     /// @notice A proposal must be submitted by the owner, and takes effect after approval of both the proposed beneficiary and current beneficiary, if applicable, any current beneficiary that has time and quota remaining.
     /// @notice See FIP-0029, https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0029.md
-    function changeBeneficiary(bytes memory target, MinerTypes.ChangeBeneficiaryParams memory params) internal {
+    function changeBeneficiary(
+        bytes memory target,
+        MinerTypes.ChangeBeneficiaryParams memory params
+    ) internal {
         bytes memory raw_request = params.serialize();
 
-        bytes memory raw_response = Actor.call(MinerTypes.ChangeBeneficiaryMethodNum, target, raw_request, Misc.CBOR_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.ChangeBeneficiaryMethodNum,
+            target,
+            raw_request,
+            Misc.CBOR_CODEC
+        );
 
         Actor.readRespData(raw_response);
 
@@ -157,10 +204,17 @@ library MinerAPI {
     /// @param target The miner address (type ID) you want to interact with
     /// @notice This method is for use by other actors (such as those acting as beneficiaries), and to abstract the state representation for clients.
     /// @notice Retrieves the currently active and proposed beneficiary information.
-    function getBeneficiary(bytes memory target) internal returns (MinerTypes.GetBeneficiaryReturn memory) {
+    function getBeneficiary(
+        bytes memory target
+    ) internal returns (MinerTypes.GetBeneficiaryReturn memory) {
         bytes memory raw_request = new bytes(0);
 
-        bytes memory raw_response = Actor.call(MinerTypes.GetBeneficiaryMethodNum, target, raw_request, Misc.NONE_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.GetBeneficiaryMethodNum,
+            target,
+            raw_request,
+            Misc.NONE_CODEC
+        );
 
         bytes memory result = Actor.readRespData(raw_response);
 
@@ -172,10 +226,18 @@ library MinerAPI {
 
     /// @notice TODO fill me up
     /// @param target The miner address (type ID) you want to interact with
-    function changeWorkerAddress(bytes memory target, MinerTypes.ChangeWorkerAddressParams memory params) internal {
+    function changeWorkerAddress(
+        bytes memory target,
+        MinerTypes.ChangeWorkerAddressParams memory params
+    ) internal {
         bytes memory raw_request = params.serialize();
 
-        bytes memory raw_response = Actor.call(MinerTypes.ChangeWorkerAddressMethodNum, target, raw_request, Misc.CBOR_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.ChangeWorkerAddressMethodNum,
+            target,
+            raw_request,
+            Misc.CBOR_CODEC
+        );
 
         Actor.readRespData(raw_response);
 
@@ -184,10 +246,18 @@ library MinerAPI {
 
     /// @notice TODO fill me up
     /// @param target The miner address (type ID) you want to interact with
-    function changePeerId(bytes memory target, MinerTypes.ChangePeerIDParams memory params) internal {
+    function changePeerId(
+        bytes memory target,
+        MinerTypes.ChangePeerIDParams memory params
+    ) internal {
         bytes memory raw_request = params.serialize();
 
-        bytes memory raw_response = Actor.call(MinerTypes.ChangePeerIDMethodNum, target, raw_request, Misc.CBOR_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.ChangePeerIDMethodNum,
+            target,
+            raw_request,
+            Misc.CBOR_CODEC
+        );
 
         Actor.readRespData(raw_response);
 
@@ -196,10 +266,18 @@ library MinerAPI {
 
     /// @notice TODO fill me up
     /// @param target The miner address (type ID) you want to interact with
-    function changeMultiaddresses(bytes memory target, MinerTypes.ChangeMultiaddrsParams memory params) internal {
+    function changeMultiaddresses(
+        bytes memory target,
+        MinerTypes.ChangeMultiaddrsParams memory params
+    ) internal {
         bytes memory raw_request = params.serialize();
 
-        bytes memory raw_response = Actor.call(MinerTypes.ChangeMultiaddrsMethodNum, target, raw_request, Misc.CBOR_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.ChangeMultiaddrsMethodNum,
+            target,
+            raw_request,
+            Misc.CBOR_CODEC
+        );
 
         Actor.readRespData(raw_response);
 
@@ -211,7 +289,12 @@ library MinerAPI {
     function repayDebt(bytes memory target) internal {
         bytes memory raw_request = new bytes(0);
 
-        bytes memory raw_response = Actor.call(MinerTypes.RepayDebtMethodNum, target, raw_request, Misc.NONE_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.RepayDebtMethodNum,
+            target,
+            raw_request,
+            Misc.NONE_CODEC
+        );
 
         Actor.readRespData(raw_response);
 
@@ -223,7 +306,12 @@ library MinerAPI {
     function confirmChangeWorkerAddress(bytes memory target) internal {
         bytes memory raw_request = new bytes(0);
 
-        bytes memory raw_response = Actor.call(MinerTypes.ConfirmChangeWorkerAddressMethodNum, target, raw_request, Misc.NONE_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.ConfirmChangeWorkerAddressMethodNum,
+            target,
+            raw_request,
+            Misc.NONE_CODEC
+        );
 
         Actor.readRespData(raw_response);
 
@@ -235,7 +323,12 @@ library MinerAPI {
     function getPeerId(bytes memory target) internal returns (MinerTypes.GetPeerIDReturn memory) {
         bytes memory raw_request = new bytes(0);
 
-        bytes memory raw_response = Actor.call(MinerTypes.GetPeerIDMethodNum, target, raw_request, Misc.NONE_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.GetPeerIDMethodNum,
+            target,
+            raw_request,
+            Misc.NONE_CODEC
+        );
 
         bytes memory result = Actor.readRespData(raw_response);
 
@@ -247,10 +340,17 @@ library MinerAPI {
 
     /// @notice TODO fill me up
     /// @param target The miner address (type ID) you want to interact with
-    function getMultiaddresses(bytes memory target) internal returns (MinerTypes.GetMultiaddrsReturn memory) {
+    function getMultiaddresses(
+        bytes memory target
+    ) internal returns (MinerTypes.GetMultiaddrsReturn memory) {
         bytes memory raw_request = new bytes(0);
 
-        bytes memory raw_response = Actor.call(MinerTypes.GetMultiaddrsMethodNum, target, raw_request, Misc.NONE_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.GetMultiaddrsMethodNum,
+            target,
+            raw_request,
+            Misc.NONE_CODEC
+        );
 
         bytes memory result = Actor.readRespData(raw_response);
 
@@ -269,7 +369,12 @@ library MinerAPI {
     ) internal returns (MinerTypes.WithdrawBalanceReturn memory) {
         bytes memory raw_request = params.serialize();
 
-        bytes memory raw_response = Actor.call(MinerTypes.WithdrawBalanceMethodNum, target, raw_request, Misc.CBOR_CODEC);
+        bytes memory raw_response = Actor.call(
+            MinerTypes.WithdrawBalanceMethodNum,
+            target,
+            raw_request,
+            Misc.CBOR_CODEC
+        );
 
         bytes memory result = Actor.readRespData(raw_response);
 

@@ -47,7 +47,9 @@ library ProposeCBOR {
     using CBORDecoder for bytes;
     using BigIntCBOR for BigInt;
 
-    function serialize(MultisigTypes.ProposeParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        MultisigTypes.ProposeParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -60,7 +62,10 @@ library ProposeCBOR {
         return buf.data();
     }
 
-    function deserialize(MultisigTypes.ProposeReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        MultisigTypes.ProposeReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
 
@@ -80,7 +85,9 @@ library TxnIDCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(MultisigTypes.TxnIDParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        MultisigTypes.TxnIDParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -98,7 +105,10 @@ library ApproveCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function deserialize(MultisigTypes.ApproveReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        MultisigTypes.ApproveReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
 
@@ -117,7 +127,9 @@ library AddSignerCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(MultisigTypes.AddSignerParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        MultisigTypes.AddSignerParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -135,7 +147,9 @@ library RemoveSignerCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(MultisigTypes.RemoveSignerParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        MultisigTypes.RemoveSignerParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -153,7 +167,9 @@ library SwapSignerCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(MultisigTypes.SwapSignerParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        MultisigTypes.SwapSignerParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -171,7 +187,9 @@ library ChangeNumApprovalsThresholdCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(MultisigTypes.ChangeNumApprovalsThresholdParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        MultisigTypes.ChangeNumApprovalsThresholdParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -189,7 +207,9 @@ library LockBalanceCBOR {
     using CBORDecoder for bytes;
     using BigIntCBOR for BigInt;
 
-    function serialize(MultisigTypes.LockBalanceParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        MultisigTypes.LockBalanceParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 

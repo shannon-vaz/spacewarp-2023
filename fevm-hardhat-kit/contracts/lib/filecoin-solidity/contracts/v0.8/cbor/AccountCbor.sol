@@ -31,7 +31,9 @@ library AuthenticateMessageCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(AccountTypes.AuthenticateMessageParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        AccountTypes.AuthenticateMessageParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -42,7 +44,10 @@ library AuthenticateMessageCBOR {
         return buf.data();
     }
 
-    function deserialize(AccountTypes.AuthenticateMessageParams memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        AccountTypes.AuthenticateMessageParams memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
 
@@ -60,7 +65,9 @@ library UniversalReceiverHookCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(AccountTypes.UniversalReceiverParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        AccountTypes.UniversalReceiverParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 

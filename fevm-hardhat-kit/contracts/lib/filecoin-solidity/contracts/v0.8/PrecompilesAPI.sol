@@ -42,7 +42,16 @@ library PrecompilesAPI {
                 mstore(add(input, add(0x20, offset)), mload(add(addr, add(0x20, offset))))
             }
 
-            if iszero(staticcall(GAS_LIMIT, 0x0a, input, add(0x20, len), raw_response, MAX_RAW_RESPONSE_SIZE)) {
+            if iszero(
+                staticcall(
+                    GAS_LIMIT,
+                    0x0a,
+                    input,
+                    add(0x20, len),
+                    raw_response,
+                    MAX_RAW_RESPONSE_SIZE
+                )
+            ) {
                 revert(0, 0)
             }
         }
@@ -58,7 +67,9 @@ library PrecompilesAPI {
             let input := mload(0x40)
             mstore(input, actor_id)
 
-            if iszero(staticcall(GAS_LIMIT, 0x0b, input, len, raw_response, MAX_RAW_RESPONSE_SIZE)) {
+            if iszero(
+                staticcall(GAS_LIMIT, 0x0b, input, len, raw_response, MAX_RAW_RESPONSE_SIZE)
+            ) {
                 revert(0, 0)
             }
         }
@@ -74,7 +85,9 @@ library PrecompilesAPI {
             let input := mload(0x40)
             mstore(input, actor_id)
 
-            if iszero(staticcall(GAS_LIMIT, 0x0c, input, len, raw_response, MAX_RAW_RESPONSE_SIZE)) {
+            if iszero(
+                staticcall(GAS_LIMIT, 0x0c, input, len, raw_response, MAX_RAW_RESPONSE_SIZE)
+            ) {
                 revert(0, 0)
             }
         }

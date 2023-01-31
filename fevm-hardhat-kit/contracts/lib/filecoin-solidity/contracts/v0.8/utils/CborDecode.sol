@@ -58,7 +58,10 @@ library CBORDecoder {
         return (value != False_Type, byteIdx);
     }
 
-    function readFixedArray(bytes memory cborParams, uint byteIdx) internal pure returns (uint, uint) {
+    function readFixedArray(
+        bytes memory cborParams,
+        uint byteIdx
+    ) internal pure returns (uint, uint) {
         uint8 maj;
         uint len;
 
@@ -68,7 +71,10 @@ library CBORDecoder {
         return (len, byteIdx);
     }
 
-    function readString(bytes memory cborParams, uint byteIdx) internal pure returns (string memory, uint) {
+    function readString(
+        bytes memory cborParams,
+        uint byteIdx
+    ) internal pure returns (string memory, uint) {
         uint8 maj;
         uint len;
 
@@ -86,7 +92,10 @@ library CBORDecoder {
         return (string(slice), byteIdx + len);
     }
 
-    function readBytes(bytes memory cborParams, uint byteIdx) internal pure returns (bytes memory, uint) {
+    function readBytes(
+        bytes memory cborParams,
+        uint byteIdx
+    ) internal pure returns (bytes memory, uint) {
         uint8 maj;
         uint len;
 
@@ -109,7 +118,10 @@ library CBORDecoder {
         return (slice, byteIdx + len);
     }
 
-    function readBytes32(bytes memory cborParams, uint byteIdx) internal pure returns (bytes32, uint) {
+    function readBytes32(
+        bytes memory cborParams,
+        uint byteIdx
+    ) internal pure returns (bytes32, uint) {
         uint8 maj;
         uint len;
 
@@ -127,7 +139,10 @@ library CBORDecoder {
         return (bytes32(slice), byteIdx + len);
     }
 
-    function readUInt256(bytes memory cborParams, uint byteIdx) internal pure returns (uint256, uint) {
+    function readUInt256(
+        bytes memory cborParams,
+        uint byteIdx
+    ) internal pure returns (uint256, uint) {
         uint8 maj;
         uint256 value;
 
@@ -152,7 +167,10 @@ library CBORDecoder {
         return (value, byteIdx);
     }
 
-    function readInt256(bytes memory cborParams, uint byteIdx) internal pure returns (int256, uint) {
+    function readInt256(
+        bytes memory cborParams,
+        uint byteIdx
+    ) internal pure returns (int256, uint) {
         uint8 maj;
         uint value;
 
@@ -177,7 +195,10 @@ library CBORDecoder {
         return (int256(value), byteIdx);
     }
 
-    function readUInt64(bytes memory cborParams, uint byteIdx) internal pure returns (uint64, uint) {
+    function readUInt64(
+        bytes memory cborParams,
+        uint byteIdx
+    ) internal pure returns (uint64, uint) {
         uint8 maj;
         uint value;
 
@@ -187,7 +208,10 @@ library CBORDecoder {
         return (uint64(value), byteIdx);
     }
 
-    function readUInt32(bytes memory cborParams, uint byteIdx) internal pure returns (uint32, uint) {
+    function readUInt32(
+        bytes memory cborParams,
+        uint byteIdx
+    ) internal pure returns (uint32, uint) {
         uint8 maj;
         uint value;
 
@@ -197,7 +221,10 @@ library CBORDecoder {
         return (uint32(value), byteIdx);
     }
 
-    function readUInt16(bytes memory cborParams, uint byteIdx) internal pure returns (uint16, uint) {
+    function readUInt16(
+        bytes memory cborParams,
+        uint byteIdx
+    ) internal pure returns (uint16, uint) {
         uint8 maj;
         uint value;
 
@@ -295,7 +322,10 @@ library CBORDecoder {
 
     // Parse cbor header for major type and extra info.
     // Also return the byte index after moving past header bytes, and the number of bytes consumed
-    function parseCborHeader(bytes memory cbor, uint byteIndex) internal pure returns (uint8, uint64, uint) {
+    function parseCborHeader(
+        bytes memory cbor,
+        uint byteIndex
+    ) internal pure returns (uint8, uint64, uint) {
         uint8 first = sliceUInt8(cbor, byteIndex);
         byteIndex += 1;
         uint8 maj = (first & 0xe0) >> 5;

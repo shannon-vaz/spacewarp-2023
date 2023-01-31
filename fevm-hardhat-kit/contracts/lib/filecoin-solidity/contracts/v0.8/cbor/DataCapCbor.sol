@@ -89,7 +89,9 @@ library GetAllowanceCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(DataCapTypes.GetAllowanceParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        DataCapTypes.GetAllowanceParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -109,7 +111,9 @@ library TransferCBOR {
     using BigIntCBOR for BigInt;
     using BigIntCBOR for bytes;
 
-    function serialize(DataCapTypes.TransferParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        DataCapTypes.TransferParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -121,7 +125,10 @@ library TransferCBOR {
         return buf.data();
     }
 
-    function deserialize(DataCapTypes.TransferReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        DataCapTypes.TransferReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
         bytes memory tmp;
@@ -147,7 +154,9 @@ library TransferFromCBOR {
     using BigIntCBOR for BigInt;
     using BigIntCBOR for bytes;
 
-    function serialize(DataCapTypes.TransferFromParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        DataCapTypes.TransferFromParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -160,7 +169,10 @@ library TransferFromCBOR {
         return buf.data();
     }
 
-    function deserialize(DataCapTypes.TransferFromReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        DataCapTypes.TransferFromReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
         bytes memory tmp;
@@ -188,7 +200,9 @@ library IncreaseAllowanceCBOR {
     using CBORDecoder for bytes;
     using BigIntCBOR for BigInt;
 
-    function serialize(DataCapTypes.IncreaseAllowanceParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        DataCapTypes.IncreaseAllowanceParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -207,7 +221,9 @@ library DecreaseAllowanceCBOR {
     using CBORDecoder for bytes;
     using BigIntCBOR for BigInt;
 
-    function serialize(DataCapTypes.DecreaseAllowanceParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        DataCapTypes.DecreaseAllowanceParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -225,7 +241,9 @@ library RevokeAllowanceCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(DataCapTypes.RevokeAllowanceParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        DataCapTypes.RevokeAllowanceParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -275,7 +293,9 @@ library BurnFromCBOR {
     using BigIntCBOR for BigInt;
     using BigIntCBOR for bytes;
 
-    function serialize(DataCapTypes.BurnFromParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        DataCapTypes.BurnFromParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -286,7 +306,10 @@ library BurnFromCBOR {
         return buf.data();
     }
 
-    function deserialize(DataCapTypes.BurnFromReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        DataCapTypes.BurnFromReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
         bytes memory tmp;

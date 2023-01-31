@@ -34,7 +34,9 @@ library ChangeBeneficiaryCBOR {
     using CBORDecoder for bytes;
     using BigIntCBOR for BigInt;
 
-    function serialize(MinerTypes.ChangeBeneficiaryParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        MinerTypes.ChangeBeneficiaryParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -70,7 +72,10 @@ library IsControllingAddressCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function deserialize(MinerTypes.IsControllingAddressReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        MinerTypes.IsControllingAddressReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
 
         (ret.is_controlling, byteIdx) = rawResp.readBool(byteIdx);
@@ -81,7 +86,10 @@ library GetSectorSizeCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function deserialize(MinerTypes.GetSectorSizeReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        MinerTypes.GetSectorSizeReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
 
         (ret.sector_size, byteIdx) = rawResp.readUInt64(byteIdx);
@@ -93,7 +101,10 @@ library GetAvailableBalanceCBOR {
     using CBORDecoder for bytes;
     using BigIntCBOR for bytes;
 
-    function deserialize(MinerTypes.GetAvailableBalanceReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        MinerTypes.GetAvailableBalanceReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
 
         bytes memory tmp;
@@ -134,7 +145,10 @@ library GetBeneficiaryCBOR {
     using CBORDecoder for bytes;
     using BigIntCBOR for bytes;
 
-    function deserialize(MinerTypes.GetBeneficiaryReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        MinerTypes.GetBeneficiaryReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         bytes memory tmp;
         uint byteIdx = 0;
         uint len;
@@ -191,7 +205,10 @@ library GetVestingFundsCBOR {
     using CBORDecoder for bytes;
     using BigIntCBOR for bytes;
 
-    function deserialize(MinerTypes.GetVestingFundsReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        MinerTypes.GetVestingFundsReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         int64 epoch;
         BigInt memory amount;
         bytes memory tmp;
@@ -219,7 +236,9 @@ library ChangeWorkerAddressCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(MinerTypes.ChangeWorkerAddressParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        MinerTypes.ChangeWorkerAddressParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -239,7 +258,9 @@ library ChangePeerIDCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(MinerTypes.ChangePeerIDParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        MinerTypes.ChangePeerIDParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -254,7 +275,9 @@ library ChangeMultiaddrsCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(MinerTypes.ChangeMultiaddrsParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        MinerTypes.ChangeMultiaddrsParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -273,7 +296,10 @@ library GetPeerIDCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function deserialize(MinerTypes.GetPeerIDReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        MinerTypes.GetPeerIDReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
 
@@ -286,7 +312,10 @@ library GetMultiaddrsCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function deserialize(MinerTypes.GetMultiaddrsReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        MinerTypes.GetMultiaddrsReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
 
@@ -306,7 +335,9 @@ library WithdrawBalanceCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(MinerTypes.WithdrawBalanceParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        MinerTypes.WithdrawBalanceParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -316,7 +347,10 @@ library WithdrawBalanceCBOR {
         return buf.data();
     }
 
-    function deserialize(MinerTypes.WithdrawBalanceReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        MinerTypes.WithdrawBalanceReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
 
         (ret.amount_withdrawn, byteIdx) = rawResp.readBytes(byteIdx);

@@ -33,7 +33,9 @@ library CreateMinerCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(PowerTypes.CreateMinerParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        PowerTypes.CreateMinerParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -52,7 +54,10 @@ library CreateMinerCBOR {
         return buf.data();
     }
 
-    function deserialize(PowerTypes.CreateMinerReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        PowerTypes.CreateMinerReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
 
@@ -70,7 +75,10 @@ library MinerCountCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function deserialize(PowerTypes.MinerCountReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        PowerTypes.MinerCountReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
 
         // REVIEW: The ouput returned is '00' so it unsigned but the type described in buitin is i64.
@@ -84,7 +92,10 @@ library MinerConsensusCountCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function deserialize(PowerTypes.MinerConsensusCountReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        PowerTypes.MinerConsensusCountReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
 
         (ret.miner_consensus_count, byteIdx) = rawResp.readInt64(byteIdx);
@@ -98,7 +109,10 @@ library NetworkRawPowerCBOR {
     using CBORDecoder for bytes;
     using BigIntCBOR for bytes;
 
-    function deserialize(PowerTypes.NetworkRawPowerReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        PowerTypes.NetworkRawPowerReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
 
         bytes memory tmp;
@@ -118,7 +132,9 @@ library MinerRawPowerCBOR {
     using CBORDecoder for bytes;
     using BigIntCBOR for bytes;
 
-    function serialize(PowerTypes.MinerRawPowerParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        PowerTypes.MinerRawPowerParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -127,7 +143,10 @@ library MinerRawPowerCBOR {
         return buf.data();
     }
 
-    function deserialize(PowerTypes.MinerRawPowerReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        PowerTypes.MinerRawPowerReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
 

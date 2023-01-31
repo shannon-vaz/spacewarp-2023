@@ -33,7 +33,9 @@ library GetClaimsCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(VerifRegTypes.GetClaimsParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        VerifRegTypes.GetClaimsParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -49,7 +51,10 @@ library GetClaimsCBOR {
         return buf.data();
     }
 
-    function deserialize(VerifRegTypes.GetClaimsReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        VerifRegTypes.GetClaimsReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
 
@@ -95,7 +100,9 @@ library AddVerifierClientCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(VerifRegTypes.AddVerifierClientParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        VerifRegTypes.AddVerifierClientParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -114,7 +121,9 @@ library RemoveExpiredAllocationsCBOR {
     using CBORDecoder for bytes;
     using BigIntCBOR for bytes;
 
-    function serialize(VerifRegTypes.RemoveExpiredAllocationsParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        VerifRegTypes.RemoveExpiredAllocationsParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -130,7 +139,10 @@ library RemoveExpiredAllocationsCBOR {
         return buf.data();
     }
 
-    function deserialize(VerifRegTypes.RemoveExpiredAllocationsReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        VerifRegTypes.RemoveExpiredAllocationsReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
 
@@ -172,7 +184,9 @@ library ExtendClaimTermsCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(VerifRegTypes.ExtendClaimTermsParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        VerifRegTypes.ExtendClaimTermsParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -218,7 +232,9 @@ library RemoveExpiredClaimsCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(VerifRegTypes.RemoveExpiredClaimsParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        VerifRegTypes.RemoveExpiredClaimsParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -234,7 +250,10 @@ library RemoveExpiredClaimsCBOR {
         return buf.data();
     }
 
-    function deserialize(VerifRegTypes.RemoveExpiredClaimsReturn memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        VerifRegTypes.RemoveExpiredClaimsReturn memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
 
@@ -272,7 +291,9 @@ library UniversalReceiverHookCBOR {
     using CBOR for CBOR.CBORBuffer;
     using CBORDecoder for bytes;
 
-    function serialize(VerifRegTypes.UniversalReceiverParams memory params) internal pure returns (bytes memory) {
+    function serialize(
+        VerifRegTypes.UniversalReceiverParams memory params
+    ) internal pure returns (bytes memory) {
         // FIXME what should the max length be on the buffer?
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
@@ -283,7 +304,10 @@ library UniversalReceiverHookCBOR {
         return buf.data();
     }
 
-    function deserialize(VerifRegTypes.AllocationsResponse memory ret, bytes memory rawResp) internal pure {
+    function deserialize(
+        VerifRegTypes.AllocationsResponse memory ret,
+        bytes memory rawResp
+    ) internal pure {
         uint byteIdx = 0;
         uint len;
 

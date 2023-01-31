@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >= 0.4.19 < 0.9.0;
+pragma solidity >=0.4.19 <0.9.0;
 
 import "../contracts/CBOR.sol";
 
 contract TestCBOR {
     using CBOR for CBOR.CBORBuffer;
 
-    function getTestData() public pure returns(bytes memory) {
+    function getTestData() public pure returns (bytes memory) {
         CBOR.CBORBuffer memory buf = CBOR.create(64);
 
         // Maps
@@ -48,37 +48,37 @@ contract TestCBOR {
         return buf.data();
     }
 
-    function getTestDataBigInt() public pure returns(bytes memory) {
+    function getTestDataBigInt() public pure returns (bytes memory) {
         CBOR.CBORBuffer memory buf = CBOR.create(128);
 
         buf.startArray();
         buf.writeInt256(type(int256).min);
-        buf.writeInt256(type(int256).min+1);
-        buf.writeInt256(type(int256).max-1);
+        buf.writeInt256(type(int256).min + 1);
+        buf.writeInt256(type(int256).max - 1);
         buf.writeInt256(type(int256).max);
         buf.writeInt64(type(int64).min);
-        buf.writeInt64(type(int64).min+1);
-        buf.writeInt64(type(int64).max-1);
+        buf.writeInt64(type(int64).min + 1);
+        buf.writeInt64(type(int64).max - 1);
         buf.writeInt64(type(int64).max);
         buf.endSequence();
 
         return buf.data();
     }
 
-    function getTestDataBigUint() public pure returns(bytes memory) {
+    function getTestDataBigUint() public pure returns (bytes memory) {
         CBOR.CBORBuffer memory buf = CBOR.create(128);
 
         buf.startArray();
         buf.writeUInt256(type(uint256).min);
-        buf.writeUInt256(type(uint256).min+1);
-        buf.writeUInt256(type(uint256).max-1);
+        buf.writeUInt256(type(uint256).min + 1);
+        buf.writeUInt256(type(uint256).max - 1);
         buf.writeUInt256(type(uint256).max);
         buf.endSequence();
 
         return buf.data();
     }
 
-    function getTestDataDefiniteLengthArray() public pure returns(bytes memory) {
+    function getTestDataDefiniteLengthArray() public pure returns (bytes memory) {
         CBOR.CBORBuffer memory buf = CBOR.create(128);
 
         uint64 length = 1024;
@@ -90,7 +90,7 @@ contract TestCBOR {
         return buf.data();
     }
 
-    function getTestDataDefiniteLengthMap() public pure returns(bytes memory) {
+    function getTestDataDefiniteLengthMap() public pure returns (bytes memory) {
         CBOR.CBORBuffer memory buf = CBOR.create(128);
 
         buf.startFixedMap(3);
@@ -101,7 +101,7 @@ contract TestCBOR {
         return buf.data();
     }
 
-    function getTestDataInvalidCBOR() public pure returns(bytes memory) {
+    function getTestDataInvalidCBOR() public pure returns (bytes memory) {
         CBOR.CBORBuffer memory buf = CBOR.create(128);
 
         buf.startArray();

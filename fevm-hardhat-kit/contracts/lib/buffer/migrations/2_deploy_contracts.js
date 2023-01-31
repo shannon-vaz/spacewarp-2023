@@ -1,2 +1,1 @@
-module.exports = async (deployer) => { };
-
+module.exports = async (deployer) => {}

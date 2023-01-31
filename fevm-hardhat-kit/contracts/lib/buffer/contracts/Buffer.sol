@@ -2,31 +2,31 @@
 pragma solidity ^0.8.4;
 
 /**
-* @dev A library for working with mutable byte buffers in Solidity.
-*
-* Byte buffers are mutable and expandable, and provide a variety of primitives
-* for appending to them. At any time you can fetch a bytes object containing the
-* current contents of the buffer. The bytes object should not be stored between
-* operations, as it may change due to resizing of the buffer.
-*/
+ * @dev A library for working with mutable byte buffers in Solidity.
+ *
+ * Byte buffers are mutable and expandable, and provide a variety of primitives
+ * for appending to them. At any time you can fetch a bytes object containing the
+ * current contents of the buffer. The bytes object should not be stored between
+ * operations, as it may change due to resizing of the buffer.
+ */
 library Buffer {
     /**
-    * @dev Represents a mutable buffer. Buffers have a current value (buf) and
-    *      a capacity. The capacity may be longer than the current value, in
-    *      which case it can be extended without the need to allocate more memory.
-    */
+     * @dev Represents a mutable buffer. Buffers have a current value (buf) and
+     *      a capacity. The capacity may be longer than the current value, in
+     *      which case it can be extended without the need to allocate more memory.
+     */
     struct buffer {
         bytes buf;
         uint capacity;
     }
 
     /**
-    * @dev Initializes a buffer with an initial capacity.
-    * @param buf The buffer to initialize.
-    * @param capacity The number of bytes of space to allocate the buffer.
-    * @return The buffer, for chaining.
-    */
-    function init(buffer memory buf, uint capacity) internal pure returns(buffer memory) {
+     * @dev Initializes a buffer with an initial capacity.
+     * @param buf The buffer to initialize.
+     * @param capacity The number of bytes of space to allocate the buffer.
+     * @return The buffer, for chaining.
+     */
+    function init(buffer memory buf, uint capacity) internal pure returns (buffer memory) {
         if (capacity % 32 != 0) {
             capacity += 32 - (capacity % 32);
         }
@@ -46,12 +46,12 @@ library Buffer {
     }
 
     /**
-    * @dev Initializes a new buffer from an existing bytes object.
-    *      Changes to the buffer may mutate the original value.
-    * @param b The bytes object to initialize the buffer with.
-    * @return A new buffer.
-    */
-    function fromBytes(bytes memory b) internal pure returns(buffer memory) {
+     * @dev Initializes a new buffer from an existing bytes object.
+     *      Changes to the buffer may mutate the original value.
+     * @param b The bytes object to initialize the buffer with.
+     * @return A new buffer.
+     */
+    function fromBytes(bytes memory b) internal pure returns (buffer memory) {
         buffer memory buf;
         buf.buf = b;
         buf.capacity = b.length;
@@ -65,10 +65,10 @@ library Buffer {
     }
 
     /**
-    * @dev Sets buffer length to 0.
-    * @param buf The buffer to truncate.
-    * @return The original buffer, for chaining..
-    */
+     * @dev Sets buffer length to 0.
+     * @param buf The buffer to truncate.
+     * @return The original buffer, for chaining..
+     */
     function truncate(buffer memory buf) internal pure returns (buffer memory) {
         assembly {
             let bufptr := mload(buf)
@@ -78,14 +78,18 @@ library Buffer {
     }
 
     /**
-    * @dev Appends len bytes of a byte string to a buffer. Resizes if doing so would exceed
-    *      the capacity of the buffer.
-    * @param buf The buffer to append to.
-    * @param data The data to append.
-    * @param len The number of bytes to copy.
-    * @return The original buffer, for chaining.
-    */
-    function append(buffer memory buf, bytes memory data, uint len) internal pure returns(buffer memory) {
+     * @dev Appends len bytes of a byte string to a buffer. Resizes if doing so would exceed
+     *      the capacity of the buffer.
+     * @param buf The buffer to append to.
+     * @param data The data to append.
+     * @param len The number of bytes to copy.
+     * @return The original buffer, for chaining.
+     */
+    function append(
+        buffer memory buf,
+        bytes memory data,
+        uint len
+    ) internal pure returns (buffer memory) {
         require(len <= data.length);
 
         uint off = buf.buf.length;
@@ -133,24 +137,24 @@ library Buffer {
     }
 
     /**
-    * @dev Appends a byte string to a buffer. Resizes if doing so would exceed
-    *      the capacity of the buffer.
-    * @param buf The buffer to append to.
-    * @param data The data to append.
-    * @return The original buffer, for chaining.
-    */
+     * @dev Appends a byte string to a buffer. Resizes if doing so would exceed
+     *      the capacity of the buffer.
+     * @param buf The buffer to append to.
+     * @param data The data to append.
+     * @return The original buffer, for chaining.
+     */
     function append(buffer memory buf, bytes memory data) internal pure returns (buffer memory) {
         return append(buf, data, data.length);
     }
 
     /**
-    * @dev Appends a byte to the buffer. Resizes if doing so would exceed the
-    *      capacity of the buffer.
-    * @param buf The buffer to append to.
-    * @param data The data to append.
-    * @return The original buffer, for chaining.
-    */
-    function appendUint8(buffer memory buf, uint8 data) internal pure returns(buffer memory) {
+     * @dev Appends a byte to the buffer. Resizes if doing so would exceed the
+     *      capacity of the buffer.
+     * @param buf The buffer to append to.
+     * @param data The data to append.
+     * @return The original buffer, for chaining.
+     */
+    function appendUint8(buffer memory buf, uint8 data) internal pure returns (buffer memory) {
         uint off = buf.buf.length;
         uint offPlusOne = off + 1;
         if (off >= buf.capacity) {
@@ -173,14 +177,18 @@ library Buffer {
     }
 
     /**
-    * @dev Appends len bytes of bytes32 to a buffer. Resizes if doing so would
-    *      exceed the capacity of the buffer.
-    * @param buf The buffer to append to.
-    * @param data The data to append.
-    * @param len The number of bytes to write (left-aligned).
-    * @return The original buffer, for chaining.
-    */
-    function append(buffer memory buf, bytes32 data, uint len) private pure returns(buffer memory) {
+     * @dev Appends len bytes of bytes32 to a buffer. Resizes if doing so would
+     *      exceed the capacity of the buffer.
+     * @param buf The buffer to append to.
+     * @param data The data to append.
+     * @param len The number of bytes to write (left-aligned).
+     * @return The original buffer, for chaining.
+     */
+    function append(
+        buffer memory buf,
+        bytes32 data,
+        uint len
+    ) private pure returns (buffer memory) {
         uint off = buf.buf.length;
         uint newCapacity = len + off;
         if (newCapacity > buf.capacity) {
@@ -207,23 +215,23 @@ library Buffer {
     }
 
     /**
-    * @dev Appends a bytes20 to the buffer. Resizes if doing so would exceed
-    *      the capacity of the buffer.
-    * @param buf The buffer to append to.
-    * @param data The data to append.
-    * @return The original buffer, for chhaining.
-    */
+     * @dev Appends a bytes20 to the buffer. Resizes if doing so would exceed
+     *      the capacity of the buffer.
+     * @param buf The buffer to append to.
+     * @param data The data to append.
+     * @return The original buffer, for chhaining.
+     */
     function appendBytes20(buffer memory buf, bytes20 data) internal pure returns (buffer memory) {
         return append(buf, bytes32(data), 20);
     }
 
     /**
-    * @dev Appends a bytes32 to the buffer. Resizes if doing so would exceed
-    *      the capacity of the buffer.
-    * @param buf The buffer to append to.
-    * @param data The data to append.
-    * @return The original buffer, for chaining.
-    */
+     * @dev Appends a bytes32 to the buffer. Resizes if doing so would exceed
+     *      the capacity of the buffer.
+     * @param buf The buffer to append to.
+     * @param data The data to append.
+     * @return The original buffer, for chaining.
+     */
     function appendBytes32(buffer memory buf, bytes32 data) internal pure returns (buffer memory) {
         return append(buf, data, 32);
     }
@@ -236,7 +244,11 @@ library Buffer {
      * @param len The number of bytes to write (right-aligned).
      * @return The original buffer.
      */
-    function appendInt(buffer memory buf, uint data, uint len) internal pure returns(buffer memory) {
+    function appendInt(
+        buffer memory buf,
+        uint data,
+        uint len
+    ) internal pure returns (buffer memory) {
         uint off = buf.buf.length;
         uint newCapacity = len + off;
         if (newCapacity > buf.capacity) {

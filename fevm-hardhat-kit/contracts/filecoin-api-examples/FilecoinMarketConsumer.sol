@@ -11,7 +11,7 @@ contract FilecoinMarketConsumer {
     MarketTypes.GetDealDataCommitmentReturn public dealCommitment;
     MarketTypes.GetDealTermReturn public dealTerm;
     MarketTypes.GetDealEpochPriceReturn public dealPricePerEpoch;
-    MarketTypes.GetDealClientCollateralReturn public clientCollateral; 
+    MarketTypes.GetDealClientCollateralReturn public clientCollateral;
     MarketTypes.GetDealProviderCollateralReturn public providerCollateral;
     MarketTypes.GetDealActivationReturn public activationStatus;
 
@@ -26,9 +26,9 @@ contract FilecoinMarketConsumer {
         storeProviderCollateral(dealId);
         storeDealVerificaton(dealId);
         storeDealActivationStatus(dealId);
-    } 
+    }
 
-    function storeDealLabel(uint64 dealId) public  {
+    function storeDealLabel(uint64 dealId) public {
         dealLabel = MarketAPI.getDealLabel(dealId).label;
     }
 
@@ -49,13 +49,13 @@ contract FilecoinMarketConsumer {
     }
 
     function storeDealTotalPrice(uint64 dealId) public {
-       dealPricePerEpoch = MarketAPI.getDealTotalPrice(dealId);
+        dealPricePerEpoch = MarketAPI.getDealTotalPrice(dealId);
     }
 
     function storeClientCollateral(uint64 dealId) public {
         clientCollateral = MarketAPI.getDealClientCollateral(dealId);
     }
-    
+
     function storeProviderCollateral(uint64 dealId) public {
         providerCollateral = MarketAPI.getDealProviderCollateral(dealId);
     }

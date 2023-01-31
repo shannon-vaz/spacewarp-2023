@@ -39,10 +39,17 @@ library VerifRegAPI {
     using UniversalReceiverHookCBOR for VerifRegTypes.UniversalReceiverParams;
     using UniversalReceiverHookCBOR for VerifRegTypes.AllocationsResponse;
 
-    function getClaims(VerifRegTypes.GetClaimsParams memory params) internal returns (VerifRegTypes.GetClaimsReturn memory) {
+    function getClaims(
+        VerifRegTypes.GetClaimsParams memory params
+    ) internal returns (VerifRegTypes.GetClaimsReturn memory) {
         bytes memory raw_request = params.serialize();
 
-        bytes memory raw_response = Actor.call(VerifRegTypes.GetClaimsMethodNum, VerifRegTypes.ActorCode, raw_request, Misc.CBOR_CODEC);
+        bytes memory raw_response = Actor.call(
+            VerifRegTypes.GetClaimsMethodNum,
+            VerifRegTypes.ActorCode,
+            raw_request,
+            Misc.CBOR_CODEC
+        );
 
         bytes memory result = Actor.readRespData(raw_response);
 
@@ -87,7 +94,9 @@ library VerifRegAPI {
         return response;
     }
 
-    function extendClaimTerms(VerifRegTypes.ExtendClaimTermsParams memory params) internal returns (CommonTypes.BatchReturn memory) {
+    function extendClaimTerms(
+        VerifRegTypes.ExtendClaimTermsParams memory params
+    ) internal returns (CommonTypes.BatchReturn memory) {
         bytes memory raw_request = params.serialize();
 
         bytes memory raw_response = Actor.call(
