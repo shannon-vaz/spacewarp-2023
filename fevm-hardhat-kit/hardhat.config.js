@@ -1,4 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox")
+require("@nomicfoundation/hardhat-chai-matchers");
 require("hardhat-deploy")
 require("hardhat-deploy-ethers")
 require("./tasks")
