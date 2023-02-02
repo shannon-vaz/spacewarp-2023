@@ -1,6 +1,7 @@
 require("hardhat-deploy")
 require("hardhat-deploy-ethers")
 
+const { ethers } = require("hardhat")
 const { networkConfig } = require("../helper-hardhat-config")
 
 const private_key = network.config.accounts[0]
@@ -31,4 +32,18 @@ module.exports = async ({ deployments }) => {
     const dealRewarder = await DealRewarder.deploy()
     await dealRewarder.deployed()
     console.log("DealRewarder deployed to:", dealRewarder.address)
+
+    //deploy PrivateSoulMinter
+    const PrivateSoulMinter = await ethers.getContractFactory("PrivateSoulMinter", wallet);
+    console.log("Deploying PrivateSoulMinter...");
+    const privateSoulMinter = await PrivateSoulMinter.deploy();
+    await privateSoulMinter.deployed();
+    console.log("PrivateSoulMinter deployed to:", privateSoulMinter.address);
+
+    //deploy Verifier
+    const Verifier = await ethers.getContractFactory("Verifier", wallet);
+    console.log("Deploying Verifier...");
+    const verifier = await Verifier.deploy();
+    await verifier.deployed();
+    console.log("Verifier deployed to:", verifier.address);
 }
