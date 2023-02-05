@@ -1,0 +1,5 @@
+# ignore files generated while creating proof
+./input.json
+./proof.json
+./public.json
+./witnes.wtns
