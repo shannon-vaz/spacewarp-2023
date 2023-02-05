@@ -3,17 +3,17 @@ import { createContext, useEffect, useState } from "react"
 import { ChainDoesNotSupportMulticallError, useAccount, useNetwork, useSigner } from "wagmi"
 
 import privateSoulMinterAbi from "../ethereum/PrivateSoulMinter.json"
-import verifierAbi from "../ethereum/PrivateSoulMinter.json"
+import verifierAbi from "../ethereum/Verifier.json"
 import networkJsonFile from "../../network.json"
 import { ChainId, isChainId, NetworkConfig } from "../types/network"
 
 const PRIVATESOULMINTER = {
-    address: "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+    address: "0x99dBE4AEa58E518C50a1c04aE9b48C9F6354612f",
     abi: privateSoulMinterAbi.abi,
 }
 
 const VERIFIER = {
-    address: "0xb9bEECD1A582768711dE1EE7B0A1d582D9d72a6C",
+    address: "0x6F6f570F45833E249e27022648a26F4076F48f78",
     abi: verifierAbi.abi,
 }
 
@@ -67,10 +67,10 @@ export const ConnectedContextProvider: React.FC<ConnectedContextProviderProps> =
             const privateSoulMinter = new ethers.Contract(
                 PRIVATESOULMINTER.address,
                 PRIVATESOULMINTER.abi,
-                provider
+                signer
             )
             console.log(privateSoulMinter)
-            const verifier = new ethers.Contract(VERIFIER.address, VERIFIER.abi, provider)
+            const verifier = new ethers.Contract(VERIFIER.address, VERIFIER.abi, signer)
 
             setConnected({
                 chainId,
