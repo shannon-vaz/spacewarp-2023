@@ -73,6 +73,12 @@ library Pairing {
     /// @return r the product of a point on G1 and a scalar, i.e.
     /// p == p.scalar_mul(1) and p.addition(p) == p.scalar_mul(2) for all points p.
     function scalar_mul(G1Point memory p, uint s) internal view returns (G1Point memory r) {
+        
+        if (s == 0) {
+           G1Point memory ret;
+            return ret;
+        }
+        
         uint[3] memory input;
         input[0] = p.X;
         input[1] = p.Y;
