@@ -6,10 +6,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/big"
+	"os"
 
 	"github.com/iden3/go-circuits"
 	core "github.com/iden3/go-iden3-core"
 	"github.com/iden3/go-iden3-crypto/babyjub"
+	"github.com/iden3/go-iden3-crypto/keccak256"
 	poseidon "github.com/iden3/go-iden3-crypto/poseidon"
 	"github.com/iden3/go-merkletree-sql"
 )
@@ -27,6 +29,13 @@ type verifyClaimCircuitInputs struct {
 	Value        []*big.Int  `json:"value"`
 }
 
+type signedClaim struct {
+	Claim        *core.Claim `json:"claim"`
+	SignatureR8X string      `json:"sigR8x"`
+	SignatureR8Y string      `json:"sigR8y"`
+	SignatureS   string      `json:"sigS"`
+}
+
 func main() {
 
 	// // to generate a random private key
@@ -41,37 +50,38 @@ func main() {
 	X := privKey.Public().X
 	Y := privKey.Public().Y
 
-	// issue claim for user adding 25 in the data slot for age
-	dataSlotA, _ := core.NewElemBytesFromInt(big.NewInt(25))
+	// issue claim for SP setting 1 in data slot for isMember
+	dataSlotA, _ := core.NewElemBytesFromInt(big.NewInt(1))
 
 	// add a random nonce to avoid rainbow attacks
 	RandomInt, _ := rand.Prime(rand.Reader, 128)
 	dataSlotC, _ := core.NewElemBytesFromInt(RandomInt)
 
 	var schemaHash core.SchemaHash
+	schemaHashString := calculateClaimSchemaHash()
 
-	// Add the schema hash for age claim standard
-	schemaBytes, _ := hex.DecodeString("ce6bb12c96bfd1544c02c289c6b4b987")
+	// Add the schema hash for sp org membership claim standard
+	schemaBytes, _ := hex.DecodeString(schemaHashString)
 
 	copy(schemaHash[:], schemaBytes)
 
-	ageClaim, _ := core.NewClaim(
+	orgMembershipClaim, _ := core.NewClaim(
 		schemaHash,
 		core.WithIndexData(dataSlotA, core.ElemBytes{}),
 		core.WithValueData(dataSlotC, core.ElemBytes{}))
 
-	hashIndex, hashValue, _ := claimsIndexValueHashes(*ageClaim)
+	hashIndex, hashValue, _ := claimsIndexValueHashes(*orgMembershipClaim)
 
 	commonHash, _ := merkletree.HashElems(hashIndex, hashValue)
 
 	// Define the query for the verifier
 	// SlotIndex identifies the location inside the claim of the queried data
 	// Values identifies the queried value
-	// Operator 2 means "more than"
+	// Operator 1 means "equals"
 	query := circuits.Query{
 		SlotIndex: 2,
-		Values:    []*big.Int{new(big.Int).SetInt64(18)},
-		Operator:  3,
+		Values:    []*big.Int{new(big.Int).SetInt64(1)},
+		Operator:  1,
 	}
 
 	q := make([]*big.Int, 63)
@@ -87,21 +97,31 @@ func main() {
 	// Signature used EdDSA hash schema
 
 	circuitInputs := verifyClaimCircuitInputs{
-		Claim:        ageClaim,
+		Claim:        orgMembershipClaim,
 		SignatureR8X: claimSignature.R8.X.String(),
 		SignatureR8Y: claimSignature.R8.Y.String(),
 		SignatureS:   claimSignature.S.String(),
 		PubKeyX:      X.String(),
 		PubKeyY:      Y.String(),
-		ClaimSchema:  ageClaim.GetSchemaHash().BigInt().String(),
+		ClaimSchema:  orgMembershipClaim.GetSchemaHash().BigInt().String(),
 		SlotIndex:    query.SlotIndex,
 		Operator:     query.Operator,
 		Value:        values,
 	}
 
-	jsonData, _ := json.Marshal(circuitInputs)
+	signedClaimData := signedClaim{
+		Claim:        orgMembershipClaim,
+		SignatureR8X: claimSignature.R8.X.String(),
+		SignatureR8Y: claimSignature.R8.Y.String(),
+		SignatureS:   claimSignature.S.String(),
+	}
 
-	fmt.Println(string(jsonData))
+	circuitInputsJSON, _ := json.Marshal(circuitInputs)
+	signedClaimDataJSON, _ := json.Marshal(signedClaimData)
+
+	fmt.Println(string(circuitInputsJSON))
+	fmt.Println()
+	fmt.Println(string(signedClaimDataJSON))
 }
 
 func claimsIndexValueHashes(c core.Claim) (*big.Int, *big.Int, error) {
@@ -113,3 +133,17 @@ func claimsIndexValueHashes(c core.Claim) (*big.Int, *big.Int, error) {
 	valueHash, err := poseidon.Hash(core.ElemBytesToInts(value[:]))
 	return indexHash, valueHash, err
 }
+
+func calculateClaimSchemaHash() string {
+	schemaBytes, _ := os.ReadFile("../claim_schemas/sp-org-membership.json-ld")
+	var sHash core.SchemaHash
+	// Hash of claim schema = hash(schemaBytes, credentialType)
+	h := keccak256.Hash(schemaBytes, []byte("SPOrgMembership"))
+	copy(sHash[:], h[len(h)-16:])
+	sHashHex, _ := sHash.MarshalText()
+	return (string(sHashHex))
+}
+
+// TODO
+// - create function to generate claim for issuer
+// - create function to generateProof for holder
