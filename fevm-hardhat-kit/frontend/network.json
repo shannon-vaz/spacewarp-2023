@@ -1,0 +1,30 @@
+{
+    "3141": {
+        "index": 0,
+        "key": "filecoinHyperspace",
+        "env": "testnet",
+        "name": "filecoinHyperspace",
+        "currency": "tFIL",
+        "icon": "filecoin.png",
+        "rpc": "https://api.hyperspace.node.glif.io/rpc/v1",
+        "explorer": { "name": "Filfox", "url": "https://hyperspace.filfox.info" },
+        "deployments": {
+            "privateSoulMinter": "0x662506FC9F1229D8d46964d6F987c98de49BCE48",
+            "verifier": "0xba197739eC32fc15ff4Dc99a02896D16C289704e"
+        }
+    },
+    "1337": {
+        "index": 4,
+        "key": "localhost",
+        "env": "localhost",
+        "name": "Localhost",
+        "currency": "ETH",
+        "icon": "localhost.png",
+        "rpc": "http://localhost:8545",
+        "explorer": { "name": "Localchain Explorer", "url": "http://localhost:3001" },
+        "deployments": {
+            "privateSoulMinter": "0x5E1417C303048C7FF12e678574e3b48b3B941Ad1",
+            "verifier": "0x83d39B47d3a963613b46bC6DA3eC3BA235B4b95c"
+        }
+    }
+}

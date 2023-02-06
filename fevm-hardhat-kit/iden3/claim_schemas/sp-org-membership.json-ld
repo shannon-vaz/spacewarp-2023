@@ -1,0 +1,23 @@
+{
+  "@context": [{
+    "@version": 1.1,
+    "@protected": true,
+    "id": "@id",
+    "type": "@type",
+    "SPOrgMembership": {
+      "@id": "https://raw.githubusercontent.com/shannon-vaz/spacewarp-2023/main/fevm-hardhat-kit/iden3/claim_schemas/sp-org-membership.json-ld",
+      "@context": {
+        "@version": 1.1,
+        "@protected": true,
+        "id": "@id",
+        "type": "@type",
+        "sp-org-membership-vocab": "https://github.com/shannon-vaz/spacewarp-2023/blob/main/fevm-hardhat-kit/iden3/claim_schemas/sp-org-membership.md#",
+        "serialization": "https://github.com/shannon-vaz/spacewarp-2023/blob/main/fevm-hardhat-kit/iden3/claim_schemas/sp-org-membership-serialization.md#",
+        "type": {
+          "@id": "sp-org-membership:isMember",
+          "@type": "serialization:IndexDataSlotA"
+        },
+      }
+    }
+  }]
+}
