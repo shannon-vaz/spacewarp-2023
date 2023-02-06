@@ -29,14 +29,18 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     const router = useRouter()
 
     return (
-        <Flex minHeight={"100vh"} direction={"column"} bgGradient="linear(to-b, red.100, blue.100)">
+        <Flex
+            minHeight={"100vh"}
+            direction={"column"}
+            bgGradient="linear(to-b, purple.100, purple.100)"
+        >
             <Head />
             <Container as="section" maxW="8xl">
                 <Box as="nav" py="4">
                     <HStack justify="space-between" alignItems={"center"} h="12">
                         <Link href="/">
                             <Image
-                                src={"/assets/icon.png"}
+                                src={"/assets/zkfication.png"}
                                 alt="logo"
                                 h="8"
                                 rounded={configJsonFile.style.radius}

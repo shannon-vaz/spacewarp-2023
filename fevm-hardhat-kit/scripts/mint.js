@@ -20,7 +20,7 @@ async function main() {
     let privateSoulMinter = await ethers.getContractFactory("PrivateSoulMinter", wallet)
         .then(f => f.attach(SOULMINTER_ADDR));
     let to = collector
-    let metaURI = "https://bafybeibodo3cnumo76lzdf2dlatuoxtxahgowxuihwiqeyka7k2qt7eupy.ipfs.nftstorage.link/"
+    let metaURI = "https://bafybeifr4dgrjvx6wszwacanc4inmdft6jxbxjt74ojdhp7vmx6qiqfbtm.ipfs.nftstorage.link/zkSBT-metadata.png"
     let claimHashMetadata = ethers.utils.solidityKeccak256(["uint", "uint", "uint"], [sigR8x, sigR8y, sigS])
     let receipt = await privateSoulMinter.mint(to, metaURI, claimHashMetadata, {
         gasLimit: 1000000000,

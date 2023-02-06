@@ -5,9 +5,9 @@
         "env": "testnet",
         "name": "filecoinHyperspace",
         "currency": "tFIL",
-        "icon": "ethereum.png",
+        "icon": "filecoin.png",
         "rpc": "https://api.hyperspace.node.glif.io/rpc/v1",
-        "explorer": { "name": "Filfox", "url": "https://hyperspace.filfox.info/" },
+        "explorer": { "name": "Filfox", "url": "https://hyperspace.filfox.info" },
         "deployments": {
             "privateSoulMinter": "0x662506FC9F1229D8d46964d6F987c98de49BCE48",
             "verifier": "0xba197739eC32fc15ff4Dc99a02896D16C289704e"
