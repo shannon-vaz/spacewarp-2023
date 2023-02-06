@@ -1,5 +1,5 @@
 const express = require("express")
-const { isValidHolder, generateClaim, getClaim } = require("./claim-utils")
+const { isValidHolder, generateClaim, getClaim, generateProof } = require("./claim-utils")
 
 const router = express.Router()
 
@@ -39,6 +39,33 @@ router.get("/claim/:holder", async (req, res) => {
     } catch (error) {
         return res.status(400).send({
             error: error.toString(),
+        })
+    }
+})
+
+/**
+ * Generates zk proof from claim based on verifier query
+ */
+router.post("/generate-proof/:holder", async (req, res) => {
+    const { holder } = req.params
+    if (!isValidHolder(holder)) {
+        return res.status(400).send({
+            error: "Bad value for holder",
+        })
+    }
+    const proofQuery = req.body
+    try {
+        console.log(`generating proof for holder ${holder}`)
+        console.log(`proof query = ${JSON.stringify(proofQuery, null, 2)}`)
+        const proof = await generateProof(holder, proofQuery)
+        console.log("proof generated")
+        return res.status(200).send({
+            proof,
+        })
+    } catch (error) {
+        console.log("error while generating proof", error)
+        return res.status(400).json({
+            error: "Could not generate proof",
         })
     }
 })

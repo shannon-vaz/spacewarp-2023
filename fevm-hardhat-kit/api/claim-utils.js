@@ -3,6 +3,7 @@ const fsPromises = require("fs/promises")
 const { spawnSync } = require("child_process")
 const ethers = require("ethers");
 
+const { generateSolidityProof } = require("./iden3/solidity-proof-generator.js")
 const ISSUER_BIN_PATH = "./bin/issuer"
 const GENERATED_CLAIMS_PATH = "./generated-claims"
 
@@ -28,6 +29,16 @@ async function getClaim(holder) {
     return JSON.parse(claim);
 }
 
+async function generateProof(holder, query) {
+  const claim = await getClaim(holder);
+  const input = {
+    ...claim,
+    ...query
+  }
+  const proof = await generateSolidityProof(input);
+  return proof;
+}
+
 function isValidHolder(holder) {
   return ethers.isAddress(holder);
 }
@@ -49,5 +60,6 @@ function claimPathForHolder(holder) {
 module.exports = {
   generateClaim,
   getClaim,
+  generateProof,
   isValidHolder
 }
