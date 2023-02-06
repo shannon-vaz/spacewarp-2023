@@ -7,12 +7,11 @@ import { CredentialCard } from "@/components/CredentialCard"
 import { Layout } from "@/components/Layout"
 import { Unit } from "@/components/Unit"
 import { useConnected } from "@/hooks/useConnected"
-import { getFileBuffer } from "@/lib/utils"
-import { getClaim } from "@/lib/zkp/claim"
-import generateProof from "@/lib/zkp/generate-proof"
-import { getSignature } from "@/lib/zkp/sig"
+import generateProofQuery from "@/lib/zkp/generate-proof-query.js"
+import { generateProof } from "@/api"
 import { Credential } from "@/types/Credential"
 import { getJSDocTypeParameterTags } from "typescript"
+import { sleep } from "@/lib/utils"
 
 const { Step } = Steps
 
@@ -24,8 +23,6 @@ const HolderPage: NextPage = () => {
     const [modal, contextHolder] = Modal.useModal()
     const [modal2Open, setModal2Open] = useState(false)
 
-    const [claim, setClaim] = useState("")
-    const [signature, setSignature] = useState("")
     const [result, setResult] = useState()
     const [proof, setProof] = useState()
     const [verified, setVerified] = useState(false)
@@ -58,28 +55,20 @@ const HolderPage: NextPage = () => {
                 throw new Error("not connected")
             }
             setIsLoading(true)
-
-            const claim = getClaim()
-            setClaim(claim)
-            console.log("Claim", claim)
-
-            const signature = getSignature()
-            setSignature(signature)
-            console.log("signature", signature)
-
             console.log("calculate zk proof...")
-
-            const wasmBuff = await getFileBuffer(`${window.location.origin}/zkp/circuit.wasm`)
-            const zkeyBuff = await getFileBuffer(`${window.location.origin}/zkp/circuit_final.zkey`)
-
-            const proof = (await generateProof(claim, signature, wasmBuff, zkeyBuff)) as any
-            console.log(...proof)
+            const holder = connected.signerAddress;
+            const proofQuery = generateProofQuery();
+            const proof = await generateProof(holder, proofQuery);
+            console.log(proof)
+            await sleep(1500);
             setProof(proof)
-            const [a, b, c, pubInput] = proof
+
             console.log(connected)
             console.log("Verify with verifier contract", connected.verifier.address)
-            const result = await connected.verifier.verifyProof(a, b, c, pubInput)
+            const result = await connected.verifier.verifyProof(proof.a, proof.b, proof.c, proof.public)
+            await sleep(1500);
             setResult(result)
+
             setVerified(true)
             console.log("Your identity is verified on-chain with ZKP!!", result)
         } catch (e) {
@@ -91,10 +80,8 @@ const HolderPage: NextPage = () => {
 
     const getStep = () => {
         if (result) {
-            return 3
-        } else if (proof) {
             return 2
-        } else if (signature) {
+        } else if (proof) {
             return 1
         }
         return 0
@@ -137,14 +124,9 @@ const HolderPage: NextPage = () => {
                                                 footer={null}
                                             >
                                                 <Steps current={getStep()}>
-                                                    <Step title="Obtaining Claim" description="" />
-                                                    <Step
-                                                        title="Obtaining Signature"
-                                                        description=""
-                                                    />
-                                                    <Step title="Generating Proof" description="" />
-
-                                                    <Step title="Proof Verified" description="" />
+                                                    <Step title="Generating Proof" description="Generating ZK proof to prove membership" />
+                                                    <Step title="Submitting Proof" description="Submitting proof to on-chain verifier contract" />
+                                                    <Step title="Proof Verified" description="ZK proof was verified on chain" />
                                                 </Steps>
                                             </Modal>
                                         </Stack>

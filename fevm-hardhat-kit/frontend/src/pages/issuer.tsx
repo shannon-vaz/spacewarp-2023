@@ -22,8 +22,7 @@ import { Unit } from "@/components/Unit"
 import { useConnected } from "@/hooks/useConnected"
 import { useErrorHandler } from "@/hooks/useErrorHandler"
 import { sleep } from "@/lib/utils"
-import { getClaim } from "@/lib/zkp/claim"
-import { getSignature } from "@/lib/zkp/sig"
+import { generateClaim } from "@/api"
 
 const CreatePage: NextPage = () => {
     const { connected } = useConnected()
@@ -103,20 +102,16 @@ const CreatePage: NextPage = () => {
                                     )
 
                                     await sleep(3000)
-
                                     console.log("claim and signature data to be stored off-chain")
-
-                                    const claim = getClaim()
+                                    const claim = await generateClaim(mintToAddress)
                                     console.log("claim", claim)
-
-                                    const signature = getSignature()
+                                    const signature = [claim.sigR8x, claim.sigR8y, claim.sigS]
                                     console.log("signature", signature)
-
                                     await sleep(1000)
 
                                     const claimHash = ethers.utils.solidityKeccak256(
                                         ["uint", "uint", "uint"],
-                                        signature.split(",")
+                                        signature
                                     )
                                     console.log(
                                         "hash of signature to be stored on-chain with SBT",

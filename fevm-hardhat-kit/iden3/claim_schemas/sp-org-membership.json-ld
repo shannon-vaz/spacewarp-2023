@@ -5,14 +5,14 @@
     "id": "@id",
     "type": "@type",
     "SPOrgMembership": {
-      "@id": "https://raw.githubusercontent.com/iden3/tutorial-examples/main/claim-schema/proof-of-dao-membership.json-ld#ProofOfDaoMembership",
+      "@id": "https://raw.githubusercontent.com/shannon-vaz/spacewarp-2023/main/fevm-hardhat-kit/iden3/claim_schemas/sp-org-membership.json-ld#SPOrgMembership",
       "@context": {
         "@version": 1.1,
         "@protected": true,
         "id": "@id",
         "type": "@type",
-        "proof-of-dao-vocab": "https://github.com/iden3/tutorial-examples/blob/main/claim-schema/proof-of-dao.md#",
-        "serialization": "https://github.com/iden3/claim-schema-vocab/blob/main/credentials/serialization.md#",
+        "sp-org-membership-vocab": "https://github.com/shannon-vaz/spacewarp-2023/blob/main/fevm-hardhat-kit/iden3/claim_schemas/sp-org-membership.md#",
+        "serialization": "https://github.com/shannon-vaz/spacewarp-2023/blob/main/fevm-hardhat-kit/iden3/claim_schemas/sp-org-membership-serialization.md#",
         "type": {
           "@id": "sp-org-membership:isMember",
           "@type": "serialization:IndexDataSlotA"

@@ -8,26 +8,12 @@ import (
 	"math/big"
 	"os"
 
-	"github.com/iden3/go-circuits"
 	core "github.com/iden3/go-iden3-core"
 	"github.com/iden3/go-iden3-crypto/babyjub"
 	"github.com/iden3/go-iden3-crypto/keccak256"
 	poseidon "github.com/iden3/go-iden3-crypto/poseidon"
 	"github.com/iden3/go-merkletree-sql"
 )
-
-type verifyClaimCircuitInputs struct {
-	Claim        *core.Claim `json:"claim"`
-	SignatureR8X string      `json:"sigR8x"`
-	SignatureR8Y string      `json:"sigR8y"`
-	SignatureS   string      `json:"sigS"`
-	PubKeyX      string      `json:"pubKeyX"`
-	PubKeyY      string      `json:"pubKeyY"`
-	ClaimSchema  string      `json:"claimSchema"`
-	SlotIndex    int         `json:"slotIndex"`
-	Operator     int         `json:"operator"`
-	Value        []*big.Int  `json:"value"`
-}
 
 type signedClaim struct {
 	Claim        *core.Claim `json:"claim"`
@@ -38,17 +24,13 @@ type signedClaim struct {
 
 func main() {
 
-	// // to generate a random private key
+	// to generate a random private key
 	// privKey := babyjub.NewRandPrivKey()
 
-	var privKey babyjub.PrivateKey
-
+	var issuerPrivKey babyjub.PrivateKey
 	privKHex := "21a5e7321d0e2f3ca1cc6504396e6594a2211544b08c206847cdee96f832421a"
 
-	hex.Decode(privKey[:], []byte(privKHex))
-
-	X := privKey.Public().X
-	Y := privKey.Public().Y
+	hex.Decode(issuerPrivKey[:], []byte(privKHex))
 
 	// issue claim for SP setting 1 in data slot for isMember
 	dataSlotA, _ := core.NewElemBytesFromInt(big.NewInt(1))
@@ -74,40 +56,10 @@ func main() {
 
 	commonHash, _ := merkletree.HashElems(hashIndex, hashValue)
 
-	// Define the query for the verifier
-	// SlotIndex identifies the location inside the claim of the queried data
-	// Values identifies the queried value
-	// Operator 1 means "equals"
-	query := circuits.Query{
-		SlotIndex: 2,
-		Values:    []*big.Int{new(big.Int).SetInt64(1)},
-		Operator:  1,
-	}
-
-	q := make([]*big.Int, 63)
-	for i := 0; i < 63; i++ {
-		q[i] = big.NewInt(0)
-	}
-
-	values := append(query.Values, q...)
-
 	// Issuer signs the claim
-	claimSignature := privKey.SignPoseidon(commonHash.BigInt())
+	claimSignature := issuerPrivKey.SignPoseidon(commonHash.BigInt())
 	// https://github.com/iden3/go-iden3-crypto/blob/master/babyjub/eddsa.go#L289
 	// Signature used EdDSA hash schema
-
-	circuitInputs := verifyClaimCircuitInputs{
-		Claim:        orgMembershipClaim,
-		SignatureR8X: claimSignature.R8.X.String(),
-		SignatureR8Y: claimSignature.R8.Y.String(),
-		SignatureS:   claimSignature.S.String(),
-		PubKeyX:      X.String(),
-		PubKeyY:      Y.String(),
-		ClaimSchema:  orgMembershipClaim.GetSchemaHash().BigInt().String(),
-		SlotIndex:    query.SlotIndex,
-		Operator:     query.Operator,
-		Value:        values,
-	}
 
 	signedClaimData := signedClaim{
 		Claim:        orgMembershipClaim,
@@ -116,11 +68,8 @@ func main() {
 		SignatureS:   claimSignature.S.String(),
 	}
 
-	circuitInputsJSON, _ := json.Marshal(circuitInputs)
 	signedClaimDataJSON, _ := json.Marshal(signedClaimData)
 
-	fmt.Println(string(circuitInputsJSON))
-	fmt.Println()
 	fmt.Println(string(signedClaimDataJSON))
 }
 
@@ -143,7 +92,3 @@ func calculateClaimSchemaHash() string {
 	sHashHex, _ := sHash.MarshalText()
 	return (string(sHashHex))
 }
-
-// TODO
-// - create function to generate claim for issuer
-// - create function to generateProof for holder
