@@ -1,4 +1,18 @@
-import { Button, FormControl, FormLabel, Input, Stack, Text } from "@chakra-ui/react"
+//import { Button, FormControl, FormLabel, Input, Stack, Text } from "@chakra-ui/react"
+import {
+    Flex,
+    Box,
+    FormControl,
+    FormLabel,
+    Input,
+    Checkbox,
+    Stack,
+    Link,
+    Button,
+    Heading,
+    Text,
+    useColorModeValue,
+} from "@chakra-ui/react"
 import { ethers } from "ethers"
 import { NextPage } from "next"
 import { useEffect, useState } from "react"
@@ -38,40 +52,25 @@ const CreatePage: NextPage = () => {
 
     return (
         <Layout>
+            <br />
+            <br />
+            <br />
+            <br />
             <Unit header={"Claim Issuer App"}>
+                <br />
                 <Stack>
-                    <Text fontSize="x-small" color="accent">
-                        * Test data is set for easy demo
-                    </Text>
                     <Stack spacing="6">
                         <Stack>
                             <FormControl>
                                 <FormLabel>Credential Type</FormLabel>
                                 <Input value={credentialType} disabled fontSize="sm" />
                             </FormControl>
-                            {/* <FormControl>
-                                <FormLabel>Value Type</FormLabel>
-                                <Input value={valueType} disabled fontSize="sm" />
-                            </FormControl> */}
-                            {/* <FormControl>
-                                <FormLabel>Operator</FormLabel>
-                                <Input value={operator} disabled fontSize="sm" />
-                            </FormControl> */}
-                            {/* <FormControl>
-                                <FormLabel>Value</FormLabel>
-                                <Input
-                                    value={value}
-                                    onChange={(e) => setValue(e.target.value)}
-                                    disabled
-                                    fontSize="sm"
-                                />
-                            </FormControl> */}
+
                             <FormControl>
                                 <FormLabel>Mint To</FormLabel>
                                 <Input
                                     value={mintToAddress}
                                     fontSize={"xs"}
-                                    disabled
                                     onChange={(e) => setMintToAddress(e.target.value)}
                                 />
                             </FormControl>
