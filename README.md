@@ -1,6 +1,7 @@
-# Spacewarp 2023
+# zkFICATION
 
-PoC for Spacewarp 2023 hackathon
+Issue ZK claims to Storage Providers that can be used to 
+prove facts about them on-chain without revealing any sensitive data.
 
 ## Repo Guide
 

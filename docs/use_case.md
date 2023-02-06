@@ -1,4 +1,4 @@
-# Know your Storage Provider (SP)
+# ZK claim issuance for Storage Providers
 
 Issue claims to SPs that can be verified on-chain on the filecoin network
 
@@ -13,12 +13,12 @@ Issue claims to SPs that can be verified on-chain on the filecoin network
 - Format of claims (claim schema) is published by Issuer on filecoin
 - How to incentivize Issuer? **- TBD**
 
-### Holder (SP)
+### Holder (Storage Providers)
 
 - SPs receive claims about them from Issuers
 - SPs can prove facts about them, derived from info from claims, that can be
   verified on-chain by any actor
-- This allows SP to prove any fact about themself to clients on-chain
+- This allows Storage Providers to prove any fact about themself to clients on-chain
 - Example: SPs could sign up for a consortium of SPs that accept SPs with
   certain verified facts about them 
 
@@ -33,7 +33,7 @@ Issue claims to SPs that can be verified on-chain on the filecoin network
 
 ## Flows
 
-1. Identity creation for Issuer, SP, Verifier
-2. Claim issuance to SP
+1. Identity creation for Issuer, Storage Providers, Verifier
+2. Claim issuance to Storage Providers
 3. Proof request on chain
 3. On-chain proof verification
