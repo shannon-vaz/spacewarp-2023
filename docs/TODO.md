@@ -9,6 +9,9 @@ UI
 - remove default credentials shown (blockchain taipei...)
 - design UI elements to reflect SP org membership scenario
 
+Claims schema
+- update urls in claim schema json-ld doc
+
 Issuer API
 - create api for issuer claim generation
   <to>_org_memebership_claim.json
