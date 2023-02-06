@@ -10,6 +10,8 @@ import {
     MenuButton,
     MenuItem,
     MenuList,
+    Text,
+    textDecoration,
 } from "@chakra-ui/react"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { useRouter } from "next/router"
@@ -29,23 +31,22 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     const router = useRouter()
 
     return (
-        <Flex
-            minHeight={"100vh"}
-            direction={"column"}
-            bgGradient="linear(to-b, purple.100, purple.100)"
-        >
+        <Flex minHeight={"100vh"} direction={"column"} bgColor="gray.100">
             <Head />
             <Container as="section" maxW="8xl">
-                <Box as="nav" py="4">
+                <Box as="nav" py="4" px="8">
                     <HStack justify="space-between" alignItems={"center"} h="12">
                         <Link href="/">
-                            <Image
-                                src={"/assets/zkfication.png"}
-                                alt="logo"
-                                h="8"
-                                rounded={configJsonFile.style.radius}
-                            />
+                            <HStack>
+                                <Image
+                                    src={"/assets/zkfication.png"}
+                                    alt="logo"
+                                    h="10"
+                                    rounded={configJsonFile.style.radius}
+                                />
+                            </HStack>
                         </Link>
+
                         <HStack spacing="4">
                             <ConnectButton
                                 accountStatus={"address"}
@@ -77,25 +78,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     </HStack>
                 </Box>
             </Container>
-            <Container maxW="lg" flex={1}>
+            <Container maxW="2xl" flex={3} height="8xl">
                 {children}
-            </Container>
-            <Container maxW="8xl">
-                <Box as="nav" py="4">
-                    <HStack justify={"right"}>
-                        <HStack spacing={"4"}>
-                            <Link href={configJsonFile.url.github} target={"_blank"}>
-                                <Icon
-                                    as={FaGithub}
-                                    aria-label="github"
-                                    color={configJsonFile.style.color.black.text.secondary}
-                                    w={6}
-                                    h={6}
-                                />
-                            </Link>
-                        </HStack>
-                    </HStack>
-                </Box>
             </Container>
         </Flex>
     )

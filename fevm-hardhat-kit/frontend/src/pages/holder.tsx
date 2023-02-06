@@ -37,8 +37,6 @@ const HolderPage: NextPage = () => {
         }
         connected.privateSoulMinter.souls(connected.signerAddress).then((tokenId) => {
             if (tokenId.gt(0)) {
-                // this should check metadata and private data
-                // hardcode for temp
                 setCredentials([
                     {
                         issuer: connected.signerAddress,
@@ -104,34 +102,12 @@ const HolderPage: NextPage = () => {
 
     return (
         <Layout>
-            <Unit header={"Holder App"}>
+            <br />
+            <Unit header={"Claim Holder"}>
                 <Stack spacing="4">
-                    <Stack>
-                        <Stack spacing="1">
-                            <Text fontSize="xs" fontWeight={"bold"}>
-                                Sample claim
-                            </Text>
-                            <Text fontSize="x-small" color="accent">
-                                * This is mock data for better demo
-                            </Text>
-                        </Stack>
-                        <CredentialCard
-                            issuer={"0x29893eEFF38C5D5A1B2F693e2d918e618CCFfdD8"}
-                            credentialType="Member of SP Organisation"
-                            operator={"="}
-                            value={"True"}
-                        />
-                    </Stack>
                     {credentials.length > 0 && (
                         <Stack>
-                            <Stack spacing="1">
-                                <Text fontSize="xs" fontWeight={"bold"}>
-                                    Claims in Wallet
-                                </Text>
-                                {/* <Text fontSize="x-small" color="accent">
-                                    * Only one credential is allowed per wallet for easy demo
-                                </Text> */}
-                            </Stack>
+                            <Stack spacing="1"></Stack>
                             <Stack>
                                 {credentials.map((credential, i) => {
                                     return (
@@ -142,13 +118,8 @@ const HolderPage: NextPage = () => {
                                                 operator={credential.operator}
                                                 value={credential.value}
                                             />
-                                            {/* <Button
-                                                isLoading={isLoading}
-                                                onClick={calculateProofAndVerify}
-                                            >
-                                                Calculate Proof and Verify
-                                            </Button> */}
 
+                                            <br />
                                             <Button
                                                 type="primary"
                                                 onClick={calculateProofAndVerify}
@@ -163,12 +134,8 @@ const HolderPage: NextPage = () => {
                                                 onOk={() => setModal2Open(false)}
                                                 onCancel={() => setModal2Open(false)}
                                                 width="5000"
+                                                footer={null}
                                             >
-                                                {/* <p>some contents...</p>
-                                                <p>some contents...</p>
-                                                <p>some contents...</p> */}
-
-                                                {/* Progress Bar */}
                                                 <Steps current={getStep()}>
                                                     <Step title="Obtaining Claim" description="" />
                                                     <Step

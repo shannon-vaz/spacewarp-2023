@@ -14,7 +14,7 @@ export const CredentialCard: React.FC<CredentialProps> = ({
         <Box
             bgGradient="linear(to-br, gray, gray.600)"
             border={"2px"}
-            borderColor={"gray.100"}
+            borderColor={"gray.500"}
             rounded="2xl"
         >
             <Stack p="4" mb="20">
@@ -26,11 +26,11 @@ export const CredentialCard: React.FC<CredentialProps> = ({
                 </Text>
             </Stack>
             <HStack p="4" alignItems="center" margin={"0"} spacing="1">
-                <Text fontSize="x-small" color={"white"}>
+                {/* <Text fontSize="x-small" color={"white"}>
                     {operator}
-                </Text>
+                </Text> */}
                 <Text fontSize="x-small" color={"white"}>
-                    {value}
+                    isMember = {value}
                 </Text>
             </HStack>
         </Box>
