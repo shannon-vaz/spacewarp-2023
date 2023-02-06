@@ -30,16 +30,16 @@ const IssuePage: NextPage = () => {
                                 zIndex: -1,
                             }}
                         >
-                            Freelance
+                            Claim issuance
                         </Text>
                         <br />{" "}
                         <Text color={"blue.400"} as={"span"}>
-                            Design Projects
+                            for Storage Providers on Filecoin
                         </Text>{" "}
                     </Heading>
                     <Text fontSize={{ base: "md", lg: "lg" }} color={"gray.500"}>
-                        The project board is an exclusive resource for contract work. It's perfect
-                        for freelancers, agencies, and moonlighters.
+                            Issue ZK claims to Storage Providers that can be used to 
+                            prove facts about them on-chain without revealing any sensitive data.
                     </Text>
                     <Stack direction={{ base: "column", md: "row" }} spacing={4}>
                         {routes.map(({ path, name }) => {
