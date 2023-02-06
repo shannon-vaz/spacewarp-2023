@@ -14,7 +14,7 @@ import { getSignature } from "@/lib/zkp/sig"
 const CreatePage: NextPage = () => {
     const { connected } = useConnected()
 
-    const [credentialType] = useState("Age Verification")
+    const [credentialType] = useState("SP Organisation Membership claim")
     const [valueType] = useState("Number")
     const [operator] = useState("Greater than Equal")
 
@@ -39,7 +39,7 @@ const CreatePage: NextPage = () => {
 
     return (
         <Layout>
-            <Unit header={"zkSBT Issuer App"}>
+            <Unit header={"Claim Issuer App"}>
                 <Stack>
                     <Text fontSize="x-small" color="accent">
                         * Test data is set for easy demo
@@ -50,15 +50,15 @@ const CreatePage: NextPage = () => {
                                 <FormLabel>Credential Type</FormLabel>
                                 <Input value={credentialType} disabled fontSize="sm" />
                             </FormControl>
-                            <FormControl>
+                            {/* <FormControl>
                                 <FormLabel>Value Type</FormLabel>
                                 <Input value={valueType} disabled fontSize="sm" />
-                            </FormControl>
-                            <FormControl>
+                            </FormControl> */}
+                            {/* <FormControl>
                                 <FormLabel>Operator</FormLabel>
                                 <Input value={operator} disabled fontSize="sm" />
-                            </FormControl>
-                            <FormControl>
+                            </FormControl> */}
+                            {/* <FormControl>
                                 <FormLabel>Value</FormLabel>
                                 <Input
                                     value={value}
@@ -66,7 +66,7 @@ const CreatePage: NextPage = () => {
                                     disabled
                                     fontSize="sm"
                                 />
-                            </FormControl>
+                            </FormControl> */}
                             <FormControl>
                                 <FormLabel>Mint To</FormLabel>
                                 <Input
@@ -97,7 +97,7 @@ const CreatePage: NextPage = () => {
                                     await sleep(1000)
 
                                     const nftMetadataURI =
-                                        "https://bafkreicehnsubrhvc6nemiqlowequkyl5df47fsv37zskzz3mchweqpv5a.ipfs.nftstorage.link"
+                                        "https://bafybeih5bmem6o324vucawr6dzoccofnvkp43elklbzplaau6jr3os63au.ipfs.nftstorage.link/metadata.txt"
                                     console.log(
                                         "NFT metadata with public info is stored in IPFS",
                                         nftMetadataURI
