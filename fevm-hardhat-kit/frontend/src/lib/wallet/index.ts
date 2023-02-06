@@ -1,9 +1,6 @@
 import { getDefaultWallets } from "@rainbow-me/rainbowkit"
 import { Chain, configureChains, createClient } from "wagmi"
 import { publicProvider } from "wagmi/providers/public"
-import { jsonRpcProvider } from "wagmi/providers/jsonRpc"
-import ethers from "ethers"
-// import { filecoinHyperspace } from "wagmi/chains";
 
 import networkJsonFile from "../../../network.json"
 
