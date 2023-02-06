@@ -72,7 +72,7 @@ const IssuePage: NextPage = () => {
                     //objectFit={"cover"}
                     mx="auto"
                     alt="hero"
-                    marginTop={"20"}
+                    marginY={"auto"}
                 />
             </Flex>
         </Stack>
