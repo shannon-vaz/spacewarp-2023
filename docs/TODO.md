@@ -11,6 +11,9 @@ UI
 - design UI elements to reflect SP org membership scenario
 - P̶r̶o̶g̶r̶e̶s̶s̶ b̶a̶r̶ f̶o̶r̶ V̶e̶r̶i̶f̶i̶e̶r̶
 
+Claims schema
+- update urls in claim schema json-ld doc
+
 Issuer API
 
 - create api for issuer claim generation

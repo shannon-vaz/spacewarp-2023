@@ -30,7 +30,6 @@
 ```
 
 ## Holder
-  generates solidity verifier contract calldata for verifier's query
 
 ```
 Request:
